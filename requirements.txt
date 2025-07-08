@@ -1,0 +1,9 @@
+torch
+opencv-python  #for video reading, processing, and writing
+
+
+numpy  # for array manipulations and numerical operations
+
+
+ultralytics  # for YOLO detection
+scikit-learn  #for cosine_similarity if you use it (though currently in your latest code you used IoU — you can remove this if unused)
