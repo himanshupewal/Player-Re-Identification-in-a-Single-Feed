@@ -162,12 +162,12 @@ python main.py
 ```
 ### 📊 Output
 *The video will be displayed with bounding boxes and assigned IDs to each player.*
+Here’s a preview of the player re-identification in action:
 ## 🎥 Sample Output
 
-Here’s a preview of the player re-identification in action:
+Here’s a preview of the player re-identification with YOLOv8 + DeepSORT in action:
 
 ![Player Re-Identification Output](https://github.com/himanshupewal/Player-Re-Identification-in-a-Single-Feed/raw/main/output/output_annotated.gif)
-
 
 *Consistent IDs will be maintained even as players leave and re-enter the frame.*
 
