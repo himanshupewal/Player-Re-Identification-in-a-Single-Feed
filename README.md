@@ -163,7 +163,8 @@ python main.py
 ### 📊 Output
 *The video will be displayed with bounding boxes and assigned IDs to each player.*
 
-[Download Full Quality Video](output/annotated.mp4)
+ffmpeg -i output/output_annotated.mp4 -vf "fps=15,scale=640:-1" output/output.gif
+
 
 *Consistent IDs will be maintained even as players leave and re-enter the frame.*
 
