@@ -74,6 +74,25 @@ CIoU Loss (Complete IoU)
         Camera->>YOLO: Next frame
     end
 ```
+### 🛰️ Player Tracking with DeepSORT
+In this project, we use DeepSORT (Simple Online and Realtime Tracking with a Deep Association Metric) — an advanced multi-object tracking algorithm that keeps track of players across video frames by assigning consistent unique IDs.
+
+### 🔍 How DeepSORT Works:
+- Detection: First, YOLOv8 detects objects (players, referees, ball) in each frame.
+
+- Appearance Feature Extraction: For each detected player, a deep neural network extracts a 128-dimensional appearance feature vector.
+
+- Motion Prediction: Uses a Kalman filter to predict each object's next position based on its past motion.
+
+- Data Association: Matches new detections with existing tracked objects using the Hungarian algorithm, based on:
+
+- Appearance similarity (using cosine distance between feature vectors)
+
+- Predicted position proximity
+
+- If no match is found for a detection, a new track is initiated with a new unique ID.
+
+
 ## 📂 Project Structure
 ```
 player-reidentification/
