@@ -1,72 +1,92 @@
-# ⚽ Player Re-Identification in a Single Feed
+# ⚽ Player Re-Identification in a Single Video Feed 🎥
 
-This project implements a **player detection and re-identification system** using a YOLO object detection model on a single video feed.  
-It detects players, assigns unique IDs based on their initial appearance, and tracks them across frames — maintaining the same IDs even when players temporarily leave and re-enter the frame.
+This project performs player re-identification in a football match video using object detection and consistent ID tracking techniques. It uses a YOLO model for player detection and applies multi-object tracking to assign consistent IDs as players leave and re-enter the frame.
+
+---
+YOLO Architecture Overview
+Developed by Ultralytics. This architecture builds upon previous versions with significant improvements in speed, accuracy, and flexibility, making it ideal for player detection in sports analytics.
+```mermaid
+graph TD
+    A[Input Image] --> B[Backbone]
+    B --> C[Neck]
+    C --> D[Head]
+    D --> E[Predictions]
+```
+
+
+## 📂 Project Structure
+```
+player-reidentification/
+├── model/                   # YOLO model weights
+│   └── yolov8s.pt           # Pretrained detection model
+├── videos/                  # Input videos
+│   └── match.mp4            # Sample input video
+├── output/                  # Processed outputs
+│   ├── annotated.mp4        # Annotated video
+│   └── player_tracks.csv    # Tracking data
+├── player_tracker.py        # Main tracking script
+├── requirements.txt         # Dependency list
+└── README.md                # Project documentation
+```
+---
+
+## 📋 Features
+
+- Detect players in a video using a YOLO model.
+- Track players using consistent IDs as they move in and out of the frame.
+- Re-identify players upon re-entry based on detection and tracking.
+- Annotate the video feed with bounding boxes and IDs.
 
 ---
 
-## 📽️ Objective
+# 🛠️ Installation & Setup
 
-Given a short video:
-- Detect players in each frame.
-- Assign each detected player a unique ID.
-- If a player leaves the frame and returns later, recognize and reassign the same ID.
-- Simulate real-time player tracking by generating an annotated output video with bounding boxes and IDs.
-
----
-
----
-
-## 📖 How It Works
-
-1️⃣ **Player Detection**
-- Uses a YOLO model (via the Ultralytics library) to detect players in each video frame.
-- Returns bounding boxes and class confidences for detected players.
-
-2️⃣ **ID Assignment**
-- In the first few frames, assigns a unique numeric ID to each detected player.
-
-3️⃣ **Re-Identification Logic**
-- Uses **IoU (Intersection over Union)** to compare each new detection's bounding box to previously tracked players' bounding boxes.
-- If the IoU between a new detection and an existing player's last known position exceeds a defined similarity threshold (default 0.85), the same ID is assigned.
-- If no match is found, a new ID is created for the player.
-
-4️⃣ **Output Video Generation**
-- Draws bounding boxes and player IDs on each video frame.
-- Combines these frames into an annotated output video and saves it at `output/output_annotated.mp4`.
-
----
-
-## 🚀 Installation & Setup
-
-### 1️⃣ Install Python
-Ensure Python 3.8 or later is installed on your system. You can download it from:
-https://www.python.org/downloads/
-
-### 2️⃣ Install Required Python Libraries
-
-Install the necessary libraries listed in `requirements.txt` by running:
+### 📥 Clone the Repository
 
 ```bash
+git clone https://github.com/yourusername/player-reidentification.git
+cd player-reidentification
+```
+### 📦 Install Required Python Libraries
+Install the necessary libraries listed in requirements.txt by running:
+```bash
 pip install -r requirements.txt
+```
+#### Contents of requirements.txt:
+```torch
+opencv-python    #for video reading, processing, and writing
+numpy            # for array manipulations and numerical operations
+ultralytics      # for YOLO detection
+scikit-learn     #for cosine_similarity 
+```
+## 📁 Prepare Files
+Before running the program, make sure the necessary files are correctly placed in the project directories:
 
-Contents of requirements.txt:
-opencv-python
-ultralytics
-scikit-learn
-numpy
+### 🎥 Input Video
 
- 3️⃣ Prepare Files
-Place your input video inside the videos/ directory.
-Example: videos/15sec_input_720p.mp4
+Place your input video file inside the videos/ directory.
+``
+videos/match.mp4
+``
 
 Place your YOLO model file inside the model/ directory.
-Example: model/yolo_model.pt
-(Note: Since this file is large — around 186 MB — it isn't stored on GitHub. Download it separately if needed.)
+``
+model/yolo_model.pt
+``
 
+**⚠️ Note: The YOLO model file is large (~186 MB) and should be downloaded separately from the Ultralytics YOLO repo.**
 
-4️⃣ Run the Program
-In your terminal or command prompt, navigate to your project directory and run:
-
+## ▶️ Run the Program
+Open your terminal or command prompt, navigate to your project’s main directory, and run:
+```
 python main.py
+```
+### 📊 Output
+*The video will be displayed with bounding boxes and assigned IDs to each player.*
 
+*Consistent IDs will be maintained even as players leave and re-enter the frame.*
+
+#### 📌 Notes
+Ensure Python 3.8 or later is installed on your system. Download it from: ``https://www.python.org/downloads/``
+
+**Adjust main.py to modify detection thresholds or customize tracking behavior.**
