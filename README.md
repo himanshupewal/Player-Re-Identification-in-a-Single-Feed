@@ -162,8 +162,11 @@ python main.py
 ```
 ### 📊 Output
 *The video will be displayed with bounding boxes and assigned IDs to each player.*
+## 🎥 Sample Output
 
-ffmpeg -i output/output_annotated.mp4 -vf "fps=15,scale=640:-1" output/output.gif
+Here’s a preview of the player re-identification in action:
+
+![Player Re-Identification Output](https://github.com/himanshupewal/Player-Re-Identification-in-a-Single-Feed/raw/main/output/output_annotated.gif)
 
 
 *Consistent IDs will be maintained even as players leave and re-enter the frame.*
