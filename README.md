@@ -3,7 +3,7 @@
 This project performs player re-identification in a football match video using object detection and consistent ID tracking techniques. It uses a YOLO model for player detection and applies multi-object tracking to assign consistent IDs as players leave and re-enter the frame.
 
 ---
-YOLO Architecture Overview
+## YOLO Architecture Overview
 Developed by Ultralytics. This architecture builds upon previous versions with significant improvements in speed, accuracy, and flexibility, making it ideal for player detection in sports analytics.
 ```mermaid
 graph TD
@@ -12,8 +12,68 @@ graph TD
     C --> D[Head]
     D --> E[Predictions]
 ```
+### Key Components
+1. Backbone: Enhanced CSPDarknet
+- Cross Stage Partial (CSP) architecture for efficient computation
 
+- SPPF (Spatial Pyramid Pooling Fast) for multi-scale feature extraction
 
+- SiLU activation functions (Sigmoid Linear Unit)
+
+***Improved gradient flow for deeper networks***
+```mermaid
+ graph LR
+    A[Input] --> B[Convolution]
+    B --> C[CSP Block]
+    C --> D[Convolution]
+    D --> E[SPPF]
+    E --> F[Output Features]
+```
+### Key Improvements in YOLOv8 for Player Detection
+1. Anchor-Free Detection
+- Predicts center of players directly
+
+- Better handles overlapping players
+
+- Simplified training process
+
+2. Mosaic Augmentation
+Combines 4 training images into one
+
+- Improves detection of small players
+
+- Enhances model robustness to occlusions
+
+3. Optimized Loss Function
+CIoU Loss (Complete IoU)
+
+- Better bounding box regression
+
+- Handles aspect ratio variations
+
+- Improved player localization accuracy
+
+4. Dynamic Convolution
+- Adaptive kernel selection
+
+- Better feature representation
+
+- Improved efficiency for player detection
+```mermaid
+    sequenceDiagram
+    participant Camera as Camera Feed
+    participant YOLO as YOLOv8 Model
+    participant Tracker as Player Tracker
+    participant Output as Annotated Video
+    
+    Camera->>YOLO: Raw video frame
+    YOLO->>Tracker: Player detections (bboxes)
+    Tracker->>Tracker: ID assignment & re-ID
+    Tracker->>Output: Annotated frame
+    loop Each Frame
+        Camera->>YOLO: Next frame
+    end
+```
 ## 📂 Project Structure
 ```
 player-reidentification/
